@@ -1,0 +1,60 @@
+# Replacement table for depersonalize.py — EXAMPLE. Copy, do not edit in place.
+#
+#   cp tools/depersonalize.rules.example ~/.config/agent-workbench/depersonalize.rules
+#
+# This table maps YOUR real tokens to neutral ones, so the filled-in file IS
+# personal data: keep it outside the repository. depersonalize.py reads it from
+# ~/.config/agent-workbench/depersonalize.rules, or from the path in
+# WB_DEPERSONALIZE_RULES. With no table the script is a no-op — it never guesses.
+#
+# Format: one rule per line, "<regex>" TAB "<replacement>". Blank lines and
+# lines starting with # are ignored. Order matters: a possessive form has to come
+# before the bare name, or the genitive is left behind. The same goes for any
+# value that CONTAINS your name and has to stay well-formed afterwards — a bundle
+# identifier, a URL, a mail address: map the whole value first, or the bare-name
+# rule turns it into something that is no longer an identifier.
+#
+# Case: the table is applied exactly as written first, then a second time
+# case-insensitively over whatever spelling no line above claimed. So writing the
+# same token twice in different spellings still gives each its own replacement —
+# and a spelling you did not think of is caught anyway, instead of being left for
+# the abort scan to trip over.
+#
+# [rules]        applied to the whole tree
+# [source_rules] applied additionally under bundle/workbench/source
+
+[rules]
+# Whole values before bare names — otherwise `de.alice.agent-workbench` ends up
+# with a doubled component instead of a reverse-DNS address.
+de\.alice\.agent-workbench	de.example.agent-workbench
+alice\.example@mail\.invalid	you@example.com
+100\.64\.0\.1	<peer-ip>
+\bYourGitHubUser\b	<your-github-user>
+/Users/alice	$HOME
+/home/alice	$HOME
+
+# The second machine: turn a hostname into a role.
+\bPEERHOST_	PEER_
+\bpeerhost\b	peer
+
+# Private projects: keep the mechanism, drop the name.
+\bMySecretProject\b	a machine-bound project
+\bMyLiveService\b	its live service
+
+# People. Possessive BEFORE the bare name, otherwise the German genitive
+# survives as a dangling "s".
+\bAlice Example\b	the user
+Alices\s+([A-Za-zÄÖÜäöüß][A-Za-zÄÖÜäöüß-]*)	\1 des Nutzers
+\bAlices\b	des Nutzers
+\bAlice\b	der Nutzer
+\balice\b	person-1
+
+[source_rules]
+alice\.example@mail\.invalid	you@example.com
+\bYourGitHubUser\b	<your-github-user>
+/Users/alice	/Users/alice
+-Users-alice-	-Users-alice-
+\bMySecretProject\b	Demo
+\bBob\b	bob
+\bAlice\b	alice
+\balice\b	alice
