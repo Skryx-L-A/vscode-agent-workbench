@@ -140,4 +140,4 @@ docs/               media stack, services, two-machine setup
 
 ## License
 
-MIT. See [LICENSE](LICENSE).
+AGPL-3.0-only. See [LICENSE](LICENSE).
