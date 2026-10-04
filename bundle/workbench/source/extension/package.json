@@ -4,7 +4,7 @@
   "description": "Startseite, Worker-Status und Orchestrator-Anbindung für Claude Code",
   "version": "0.1.0",
   "publisher": "alice",
-  "license": "AGPL-3.0-only",
+  "license": "PolyForm-Noncommercial-1.0.0",
   "private": true,
   "engines": {
     "vscode": "^1.90.0"
