@@ -115,7 +115,9 @@ SKIP_SUFFIX = ('.vsix', '.png', '.jpg', '.jpeg', '.gif', '.ico', '.ttf', '.woff'
 # which forced an exemption - and that exemption is exactly why personal data
 # once survived the check. The table is external now, so the guard can cover
 # every file without exception.
-SKIP_FILES = set()
+# License files carry the handle and the licensing address on purpose.
+SKIP_FILES = {"LICENSE", "ADDITIONAL-PERMISSIONS.md", "COMMERCIAL-LICENSE.md",
+              "CONTRIBUTING.md", "pull_request_template.md"}
 
 COMPILED = [(re.compile(a), b) for a, b in RULES]
 COMPILED_CASE = [(re.compile(a), b) for a, b in CASE]

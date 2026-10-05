@@ -156,6 +156,15 @@ if [ -d "$EXT_REPO/extension" ]; then
     [ -f "$EXT_REPO/extension/$f" ] && rsync -a $DRY --itemize-changes \
       "$EXT_REPO/extension/$f" "$B/workbench/source/extension/$f"
   done
+  # The extension source in claude-workbench still says MIT; this repo ships it
+  # under PolyForm Noncommercial (2026-10-04).
+  [ -z "$DRY" ] && python3 - "$B/workbench/source/extension/package.json" <<'PY'
+import json, sys
+p = sys.argv[1]
+d = json.load(open(p, encoding="utf-8"))
+d["license"] = "PolyForm-Noncommercial-1.0.0"
+open(p, "w", encoding="utf-8").write(json.dumps(d, indent=2, ensure_ascii=False) + "\n")
+PY
   [ -d "$EXT_REPO/shell/tests" ] && "${RS[@]}" "$EXT_REPO/shell/tests/" "$B/workbench/source/shell-tests/"
   [ -f "$EXT_REPO/shell/models.default.json" ] && rsync -a $DRY --itemize-changes \
     "$EXT_REPO/shell/models.default.json" "$B/workbench/models.default.json"
@@ -209,7 +218,7 @@ NEEDLE="$(awk -F'\t' '/^[^#[]/ && NF>1 {gsub(/\\[bB]/,"",$1); gsub(/\\/,"",$1); 
           "$RULES_FILE" | sort -u | paste -sd'|' -)"
 if [ -z "$NEEDLE" ]; then echo "ABBRUCH: Regeltabelle ergab kein Suchmuster." >&2; exit 1; fi
 if hits="$(/usr/bin/grep -rIl -iE "$NEEDLE" "$HERE" \
-            --exclude-dir=.git 2>/dev/null)"; then
+            --exclude-dir=.git --exclude=LICENSE --exclude=ADDITIONAL-PERMISSIONS.md --exclude=COMMERCIAL-LICENSE.md --exclude=CONTRIBUTING.md --exclude=pull_request_template.md 2>/dev/null)"; then
   [ -n "$hits" ] && { echo "ABBRUCH: persönliche Spuren:" >&2; echo "$hits" >&2; FAIL=1; }
 fi
 if hits="$(/usr/bin/grep -rIl -E 'sk-[A-Za-z0-9]{20,}|ghp_[A-Za-z0-9]{30,}|AKIA[A-Z0-9]{16}|BEGIN [A-Z ]*PRIVATE KEY|xox[bpa]-' \
