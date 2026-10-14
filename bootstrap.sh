@@ -362,7 +362,7 @@ V = {
     "OS_NAME": os.environ["OS_NAME"],
     "TIMEOUT_CMD": os.environ["TIMEOUT_CMD"],
     "PROJECT_LIST": "(trage deine Projekte ein, sobald es welche gibt)",
-    "PROJECT_KIT_REPO": "privates Repo — Zugriff erfragen oder überspringen",
+    "PROJECT_KIT_REPO": "https://github.com/Skryx-L-A/project-kit (öffentlich)",
 }
 keep = {"WORKBENCH": os.environ["WITH_WB"] == "1", "LOCAL": os.environ["WITH_LOCAL"] == "1"}
 

@@ -22,7 +22,7 @@ Ergaenzt (ueberschreibt NICHT) die bereits handgepflegten ~/.pi/agent/WORKER.md 
 
 # Global instructions (every project / session)
 
-User: **der Nutzer the user** — GitHub **<your-github-user>**, email you@example.com.
+User: **the user** — GitHub **<your-github-user>**, email you@example.com.
 Machine: MacBook Pro (Apple M5 Pro, 48 GB), macOS, user `<user>`; projects in `~/AI/`. This Mac
 replaced a Linux box in July 2026 — flag leftover Linux assumptions (`$HOME`, `pactl`,
 `systemd`, `evdev`) when porting or reading old notes; prefer macOS-native tools (launchd,

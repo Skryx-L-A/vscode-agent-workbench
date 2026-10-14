@@ -1,4 +1,4 @@
-# agent-workbench
+# vscode-agent-workbench
 
 A working environment for orchestrating coding agents: one lead session that plans and verifies,
 several worker panes that do the work in parallel, and the machinery that keeps that from falling
@@ -8,6 +8,10 @@ every harness as data rather than a code branch.
 It is not tied to one vendor. Claude Code, Codex, aider, opencode, Antigravity and local models
 via Ollama are all just entries in the registry; a purely local, zero-cost setup runs the same
 way as a subscription one.
+
+This is the VS Code generation of the workbench. The desktop program that grew out of it, with
+the Agents tab, lives in **[agent-workbench](https://github.com/Skryx-L-A/agent-workbench)**;
+the full setup it runs in is **[agent-setup](https://github.com/Skryx-L-A/agent-setup)**.
 
 **→ Setting it up: hand [`AGENT-SETUP.md`](AGENT-SETUP.md) to a coding agent and tell it to work
 through the file.** That is the intended path. Doing it by hand is possible and documented, but
@@ -54,11 +58,11 @@ entirely on your machine.
 ## Quick start
 
 ```bash
-git clone https://github.com/<your-github-user>/agent-workbench.git
-cd agent-workbench
+git clone https://github.com/Skryx-L-A/vscode-agent-workbench.git
+cd vscode-agent-workbench
 ./bootstrap.sh --dry-run     # see what it would do
 ./bootstrap.sh               # do it
-./verify.sh                  # eleven checks, PASS/FAIL, no green tick over gaps
+./verify.sh                  # PASS/FAIL per check, no green tick over gaps
 ```
 
 On Windows: `powershell -ExecutionPolicy Bypass -File .\bootstrap.ps1` — see the caveat below.
@@ -99,12 +103,13 @@ Each is off unless you ask for it, and the workbench runs without all of them.
 
 In order, and every step is skippable and repeatable:
 
-1. **Asks you six things** — which agent CLIs, which subscriptions or keys, local models yes/no,
-   knowledge base yes/no, whether agents may run commands without confirming, and whether there
-   is a second machine. Answers are stored; a second run does not ask again.
+1. **Asks you ten things** — your name, GitHub handle and commit e-mail, the projects
+   directory, a short machine name, the RAM size, the knowledge-base remote, whether to install
+   the VS Code workbench, whether agents may run commands without confirming, and whether to set
+   up local models. Answers are stored; a second run does not ask again.
 2. **Installs what is missing** via your package manager, after asking for `sudo`.
 3. **Writes the agent configuration**: the rule file every agent reads, the orchestrator and
-   worker roles, nine skills, the commands, and nine enforcing hooks — made executable, because
+   worker roles, twelve skills, the commands, and nine enforcing hooks — made executable, because
    a hook without the execute bit fails silently.
 4. **Installs the tools** into `~/.local/bin`: worker spawners, context guard, registry, session
    management, cross-machine helpers, the media commands.
