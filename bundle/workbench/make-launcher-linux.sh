@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 # make-launcher-linux.sh — create a desktop launcher for the "Claude Workbench"
-# VSCode profile. Linux ONLY (the macOS counterpart is make-app.sh, which builds
-# a Dock .app). This writes a freedesktop .desktop entry that opens VSCode with
+# VSCode profile. Linux ONLY. This writes a freedesktop .desktop entry that opens VSCode with
 # the dedicated profile in a new window — tested target: Nobara/GNOME.
 #
 # Idempotent: re-running overwrites the entry. Needs `code` on PATH.
@@ -16,8 +15,7 @@ APPS="$HOME/.local/share/applications"
 DESKTOP="$APPS/claude-workbench.desktop"
 mkdir -p "$APPS"
 
-# Optional icon: reuse the bundle's .icns only if a PNG sibling exists; otherwise
-# fall back to the generic VSCode icon name.
+# Icon: the generic VSCode icon name.
 ICON="code"
 
 cat > "$DESKTOP" <<EOF

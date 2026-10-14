@@ -116,7 +116,7 @@ SKIP_SUFFIX = ('.vsix', '.png', '.jpg', '.jpeg', '.gif', '.ico', '.ttf', '.woff'
 # once survived the check. The table is external now, so the guard can cover
 # every file without exception.
 # License files carry the handle and the licensing address on purpose.
-SKIP_FILES = {"LICENSE", "ADDITIONAL-PERMISSIONS.md", "COMMERCIAL-LICENSE.md",
+SKIP_FILES = {"LICENSE",
               "CONTRIBUTING.md", "pull_request_template.md"}
 
 COMPILED = [(re.compile(a), b) for a, b in RULES]

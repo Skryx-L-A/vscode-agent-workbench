@@ -4,7 +4,7 @@
   "description": "Startseite, Worker-Status und Orchestrator-Anbindung für Claude Code",
   "version": "0.1.0",
   "publisher": "alice",
-  "license": "PolyForm-Noncommercial-1.0.0",
+  "license": "Apache-2.0",
   "private": true,
   "engines": {
     "vscode": "^1.90.0"
